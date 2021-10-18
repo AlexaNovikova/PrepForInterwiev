@@ -16,15 +16,15 @@ public class Counter {
         c = 0;
     }
 
-    public void inc()  {
+    public void inc() {
         lock.lock();
         c++;
         lock.unlock();
     }
 
     public void dec()  {
-        lock.lock();
-        c--;
-        lock.unlock();
+     lock.lock();
+     c--;
+     lock.unlock();
     }
 }
