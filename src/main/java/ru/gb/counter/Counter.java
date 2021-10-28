@@ -5,26 +5,32 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Counter {
 
-    private int c;
+    private volatile int counter;
     private final Lock lock = new ReentrantLock();
 
     public int value() {
-        return c;
+        return counter;
     }
 
     public Counter() {
-        c = 0;
+        counter = 0;
     }
 
     public void inc() {
         lock.lock();
-        c++;
-        lock.unlock();
+        try {
+            counter++;
+        } finally {
+            lock.unlock();
+        }
     }
 
-    public void dec()  {
-     lock.lock();
-     c--;
-     lock.unlock();
+    public void dec() {
+        lock.lock();
+        try {
+            counter--;
+        } finally {
+            lock.unlock();
+        }
     }
 }
